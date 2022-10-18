@@ -305,7 +305,7 @@ public class OfflineRecorder extends Thread {
     public void stopit() {
         rec.stop();
         String aa = Arrays.toString(samples);
-//        FileOperations.writetofile(av,samples,filename);
+        FileOperations.writetofile_short(av, samples, filename);
     }
 
     public static native double[] fftnative(double[] data, int N);

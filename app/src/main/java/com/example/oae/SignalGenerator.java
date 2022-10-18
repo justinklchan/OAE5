@@ -1,5 +1,6 @@
 package com.example.oae;
 
+import android.app.Activity;
 import android.util.Log;
 
 public class SignalGenerator {
@@ -234,22 +235,23 @@ public class SignalGenerator {
         return signal;
     }
 
-    public static short[] custompulse2(int gap) {
-        short[] pulse = new short[]{-3201,-2057,-681,194,0,-1388,-3549,-5650,-6791,-6404,-4563,-2029,0,370,-1499,-5258,-9603,-12647,-12558,-8276,0,10714,21341,29139,32000,29139,21341,10714,0,-8276,-12558,-12647,-9603,-5258,-1499,370,0,-2029,-4563,-6404,-6791,-5650,-3549,-1388,0,194,-681,-2057,};
-        short[] signal = new short[(pulse.length+gap)*4];
-
-        int counter = 0;
-
-        for (int j = 0; j < 3; j++) {
-            for (int i = 0; i < pulse.length; i++) {
-                signal[counter++] = (short) (pulse[i]/3);
-            }
-            counter += gap;
-        }
-        for (int i = 0; i < pulse.length; i++) {
-            signal[counter++] = (short)-pulse[i];
-        }
-        return signal;
+    public static short[] custompulse2(Activity av) {
+//        short[] pulse = new short[]{-3201,-2057,-681,194,0,-1388,-3549,-5650,-6791,-6404,-4563,-2029,0,370,-1499,-5258,-9603,-12647,-12558,-8276,0,10714,21341,29139,32000,29139,21341,10714,0,-8276,-12558,-12647,-9603,-5258,-1499,370,0,-2029,-4563,-6404,-6791,-5650,-3549,-1388,0,194,-681,-2057,};
+        short[] pulse = FileOperations.readrawasset_short(av,R.raw.pulse_sequence);
+//        short[] signal = new short[(pulse.length+gap)*4];
+//
+//        int counter = 0;
+//
+//        for (int j = 0; j < 3; j++) {
+//            for (int i = 0; i < pulse.length; i++) {
+//                signal[counter++] = (short) (pulse[i]/3);
+//            }
+//            counter += gap;
+//        }
+//        for (int i = 0; i < pulse.length; i++) {
+//            signal[counter++] = (short)-pulse[i];
+//        }
+        return pulse;
     }
 
     public static short[] generatePulse(int length) {

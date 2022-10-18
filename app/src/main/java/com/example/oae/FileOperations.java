@@ -342,6 +342,24 @@ public class FileOperations {
         return buffer;
     }
 
+    public static short[] readrawasset_short(Context context, int id) {
+
+        Scanner inp = new Scanner(context.getResources().openRawResource(id));
+        LinkedList<Short> ll = new LinkedList<>();
+        while (inp.hasNextLine()) {
+            ll.add(Short.parseShort(inp.nextLine()));
+        }
+        inp.close();
+        short[] ar = new short[ll.size()];
+        int counter = 0;
+        for (Short d : ll) {
+            ar[counter++] = d;
+        }
+        ll.clear();
+
+        return ar;
+    }
+
     public static LinkedList<String> readfromfile2(String filename)
     {
         LinkedList<String> ll = new LinkedList<String>();

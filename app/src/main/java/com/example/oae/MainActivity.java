@@ -388,15 +388,16 @@ public class MainActivity extends AppCompatActivity {
             boolean stereo = stereoSwitch.isChecked();
             Constants.AGC = agcSwitch.isChecked();
 
-            int tePulseRepetitions = 300;
+            int numreps = 1000;
+            int sleep=1;
             if (OAE.equals("TE")) {
 //                pulse = SignalGenerator.custompulse(48,4800*5);
-                pulse = SignalGenerator.custompulse2(48*50);
+                pulse = SignalGenerator.custompulse2(context);
 //                pulse = SignalGenerator.SineWaveSpeaker(samplingFreq,f1,0,samplingFreq);
 //                recordDurationInSeconds = ((pulse.length*tePulseRepetitions)/samplingFreq)+1;
-                recordDurationInSeconds=5;
+                recordDurationInSeconds=Math.ceil((numreps*pulse.length)/48e3)+sleep;
                 Log.e("asdf","record duration "+recordDurationInSeconds);
-                sp1 = new AudioSpeaker(context, pulse, samplingFreq, speakerType, stereo, 0.1);
+                sp1 = new AudioSpeaker(context, pulse, samplingFreq, speakerType, stereo, .3);
             }
             else {
                 if (singleToneSwitch.isChecked()) {
@@ -456,19 +457,19 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Log.e("hello4","start to sleep");
                 Log.e("hello4","slept");
-
 //                Thread.sleep(1500);
                 if (recordSwitch.isChecked()) {
                     Log.e("hello4","rec start");
                     rec.start();
                 }
 
+                Thread.sleep(sleep*1000);
                 Log.e("hello4", "play");
                 if (singleToneSwitch.isChecked()) {
-                    sp1.play((int)recordDurationInSeconds,30);
+                    sp1.play((int)numreps-1,30);
                 }
                 else {
-                    sp1.play((int) recordDurationInSeconds,30);
+                    sp1.play((int)numreps-1,30);
                 }
 
                 final double finalRecordDurationInSeconds = recordDurationInSeconds;
